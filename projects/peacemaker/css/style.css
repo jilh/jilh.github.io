@@ -1,0 +1,56 @@
+.navbar-overlay{
+	margin-bottom: -104px;
+	z-index: 1;
+}
+.navbar-brand{
+	font-size: 30px;
+
+}
+.navbar-color{
+	//background-color: #007bff;
+}
+.wrapper{
+	height: 100vh;
+	background: url('../img/prayer2.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+.inner-wrapper{
+	//background-image: linear-gradient(to right, #007bff, #062c7a);
+	height: 100%;
+	background: rgba(0, 123, 255, 0.9);
+}
+.head-line{
+	
+}
+.head-line > .head-wrap{
+	padding: 30% 0;
+}
+.head-line > .head-wrap > h1{
+	letter-spacing: 2px;
+	color: #c3ccd5;
+}
+.head-line > .head-wrap > p{
+	line-height: 40px;
+	font-size: 23px;
+	color: #c3ccd5;
+}
+.btn-1{
+	background: #fff !important;
+}
+.btn-2{
+	border: 2px solid #fff;
+	color: #fff;
+	background: transparent;
+}
+.about{
+	height: 100vh;
+	background: #ddd;
+	padding-top: 60px;
+}
+.messages{
+	height: 100vh;
+	background: #68adf7;
+	padding-top: 60px;
+}
