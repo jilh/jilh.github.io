@@ -9,6 +9,9 @@
 .navbar-color{
 	//background-color: #007bff;
 }
+.bg-blue{
+	background-image: linear-gradient(to right, #007bff, #062c7a);
+}
 .wrapper{
 	height: 100vh;
 	background: url('../img/prayer2.jpg');
@@ -26,6 +29,7 @@
 }
 .head-line > .head-wrap{
 	padding: 30% 0;
+	text-align: center;
 }
 .head-line > .head-wrap > h1{
 	letter-spacing: 2px;
@@ -58,6 +62,11 @@
 .sub-title{
 	text-align: center;
 	margin-bottom: 40px;
+}
+.about p{
+	line-height: 40px;
+	font-size: 20px;
+	text-align: center;
 }
 
 .messages .card-custom{
@@ -112,4 +121,4 @@
 .contact{
 	height: 100vh;
 	padding-top: 40px;
-}
+}}
