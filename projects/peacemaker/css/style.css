@@ -13,7 +13,7 @@
 	background-image: linear-gradient(to right, #007bff, #062c7a);
 }
 .wrapper{
-	height: 100vh;
+	height: 100%;
 	background: url('../img/prayer2.jpg');
 	background-repeat: no-repeat;
 	background-position: center;
@@ -29,7 +29,6 @@
 }
 .head-line > .head-wrap{
 	padding: 30% 0;
-	text-align: center;
 }
 .head-line > .head-wrap > h1{
 	letter-spacing: 2px;
@@ -121,4 +120,43 @@
 .contact{
 	height: 100vh;
 	padding-top: 40px;
-}}
+}
+
+@media screen and (max-width: 377px){
+	.head-line > .head-wrap{
+		padding: 5% 0;
+		text-align: center;
+	}
+	.head-line > .head-wrap > h1{
+		letter-spacing: 2px;
+		color: #c3ccd5;
+	}
+	.head-line > .head-wrap > p{
+		line-height: 35px;
+		font-size: 20px;
+		color: #c3ccd5;
+	}
+	.btn-1{
+		background: #fff !important;
+		margin-bottom: 5px;
+	}
+	.btn-2{
+		border: 2px solid #fff;
+		color: #fff;
+		background: transparent;
+	}
+	
+	.about{
+		height: 100%;
+		background: #ddd;
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+	
+	.messages{
+		height: 100%;
+		background: #68adf7;
+		padding-top: 50px;
+		padding-bottom: 50px;
+	}
+}
