@@ -46,3 +46,38 @@
 .info-card{
 	margin-bottom: 15px;
 }
+
+.reading-plans{
+	height: 100vh;
+	background-image: url('../img/workplace.jpg');
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.reading-plans > .inner-wrapper{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: rgba(0,0,0, 0.8);
+	padding-top: 90px;
+}
+.reading-plans  h2{
+	color: #fff;
+}
+
+.contact{
+	height: 100vh;
+	background: #fff;
+	padding-top: 90px;
+}
+.contact .form-wrapper{
+	padding: 10px;
+	box-sizing: border-box;
+	background: #fff;
+	border-right: 1px solid #ddd;
+}
+
+.footer{
+	height: 200px;
+	background: #222;
+}
