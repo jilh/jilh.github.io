@@ -1,0 +1,25 @@
+.main{
+	width: 55vw;
+	position: relative;
+	top: 150px;
+	background: #fff;
+	height: auto;
+	right: 0;
+	left: 0;
+	margin: auto;
+	border-radius: 2px 2px 0px 0px;
+}
+
+.article-content{
+	margin-top: 30px;
+}
+.article-content p{
+	font-size: 21px;
+}
+
+.other-articles{
+	position: relative;
+	padding-top: 50px;
+	padding-bottom: 30px;
+	background: #fafafa;
+}
