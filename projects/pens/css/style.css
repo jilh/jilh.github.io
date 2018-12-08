@@ -53,6 +53,7 @@
 	border-radius: 3px;
 	padding: 15px;
 	box-sizing: border-box;
+	margin-bottom: 15px;
 }
 .testimonies{
 	height: 100vh;
@@ -93,4 +94,30 @@
 .footer{
 	height: 200px;
 	background: #222;
+}
+
+@media screen and (min-width: 320px){
+	.main > .sub-form{
+		height: 100vh;
+		padding-top: 15vh;
+	}
+	.articles {
+		padding-top: 50px;
+	}
+	.testimonies{
+		height: 100%;
+	}
+	.testimonies > .inner-wrapper{
+		position: relative;
+	}
+	.inner-wrapper h2{
+		margin-bottom: 50px;
+	}
+	.contact {
+		height: 100%;
+		padding-top: 50px;
+	}
+	.contact .form-wrapper{
+		border-right: 0;
+	}
 }
