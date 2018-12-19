@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Pens for Christ</title>
+		<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/article-style.css">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-theme fixed-top" id="navigation">
+				<div class="container">
+				  <a class="navbar-brand" href="#">
+    				<img src="img/logo/logo-white.png" width="60" height="60" alt="">
+ 				  </a>
+				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  </button>
+				  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				    <div class="navbar-nav ml-auto">
+				      <a class="nav-item nav-link active" href="#home">Home <span class="sr-only">(current)</span></a>
+				      <a class="nav-item nav-link" href="#articles">Articles</a>
+				      <a class="nav-item nav-link" href="#">Bible Reading Plan</a>
+				      <li class="nav-item dropdown">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          About Us
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				          <a class="dropdown-item" href="#">Overview</a>
+				          <a class="dropdown-item" href="#">History</a>
+				          <a class="dropdown-item" href="#">Our Approach</a>
+				          <a class="dropdown-item" href="#">Patners</a>
+				          <a class="dropdown-item" href="#">Members</a>
+				          <div class="dropdown-divider"></div>
+				          <center>
+				          <a class="btn btn-sm btn-default" href="#">Become a member</a></center>
+				        </div>
+				      </li>
+				      <a class="nav-item nav-link" href="#contact">Contact Us</a>
+				    </div>
+				  </div>
+				</div>
+			</nav>
+		</header>
+		<div class="main">
+			<form method="post" action="#" class="form" role="form">
+				<div class="form-group">
+					<label for="firstName">First Name</label>
+					<input type="text" name="firstname" id="firstName" placeholder="First name" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last Name</label>
+					<input type="text" name="lastname" id="lastName" placeholder="Last name" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="phone">Phone Number</label>
+					<input type="text" name="phone" id="phone" placeholder="Phone Number" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="maritalStatus">What is your marrital status?</label>
+					<select name="maritalstatus" id="maritalStatus" class="form-control">
+						<option value="">Choose and option</option>
+						<option value="single">Single</option>
+						<option value="married">Married</option>
+						<option value="widowed">Widowed</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="bornAgain">Are you born again?</label>
+					<input type="radio" name="bornAgain" value="Yes">&nbsp;Yes
+					<input type="radio" name="bornAgain" value="No">&nbsp;No
+					<input type="radio" name="bornAgain" value="Not Sure">&nbsp;Not Sure
+				</div>
+				<div class="form-group">
+					<label for="address">Home Address</label>
+					<input type="text" name="address" class="form-control" placeholder="Home address here">
+				</div>
+				<div class="form-group">
+					<label for="address2">Second home address</label>
+					<input type="text" name="address2" class="form-control" placeholder="Home address 2">
+				</div>
+				<div class="form-group">
+					<input type="checkbox" name="attestation" class="form-control">
+					<p>By submitting this form, you agree to abide by the code of conduct of pensforchrist, and also to obey your leaders</p>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Join" class="btn btn-primary">
+				</div>	
+			</form>
+		</div>
+		
+		<div class="other-articles">
+			<center><h3>Suggested Articles</h3></center>
+			<div class="container">
+				<div class="card-deck">
+				  <div class="card">
+					<img class="card-img-top" src="img/workplace.jpg" alt="Card image cap">
+					<div class="card-body">
+					  <h4 class="card-title">Card title</h4>
+					</div>
+					<div class="card-footer">
+					  <small class="text-muted">Last updated 3 mins ago</small>
+					</div>
+				  </div>
+				  <div class="card">
+					<img class="card-img-top" src="img/workplace.jpg" alt="Card image cap">
+					<div class="card-body">
+					  <h4 class="card-title">Card title</h4>
+					</div>
+					<div class="card-footer">
+					  <small class="text-muted">Last updated 3 mins ago</small>
+					</div>
+				  </div>
+				  <div class="card">
+					<img class="card-img-top" src="img/workplace.jpg" alt="Card image cap">
+					<div class="card-body">
+					  <h4 class="card-title">Card title</h4>
+					</div>
+					<div class="card-footer">
+					  <small class="text-muted">Last updated 3 mins ago</small>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
