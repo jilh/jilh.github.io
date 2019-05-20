@@ -10,38 +10,35 @@ Tags: bootstrap, LovethPatra, Foundation
 .bg-transparent{
 	background: transparent !important;
 }
+.bg-blue{
+	background: #005bea;
+}
 
 /* LAYOUT */
-header, .about, .values, .mission, .blog, .activities, .store{
+.header-contents, .about, .values, .mission, .blog, .activities, .store{
 	height: 100vh;
 }
 
 /* DIV STYLING */
-header{
+.header-contents{
 	text-align: center;
 	//background: url('../img/beggar.jpg');
 	//background-size: cover;
 	//background-repeat: no-repeat;
 	background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
-}
-header .logo-wrapper{
-	text-align: center;
-	padding-top: 15px;
-}
-header .header-contents{
-	padding-top: 6rem;
+	padding-top: 10rem;
 	line-height: 4em;
 	text-align: center;
 	width: 100%;
 }
-header .header-contents > .container{
+.header-contents > .container{
 	width: 60%;
 }
-header .header-contents  h1{
+.header-contents  h1{
 	font-size: 6.5em;
 	color: #fff;
 }
-header .header-contents  p{
+.header-contents  p{
 	font-size: 20px;
 	color: #fff;
 	line-height: 2em;
@@ -54,7 +51,7 @@ header .header-contents  p{
 	//padding-top: 15px;
 	color: #fff;
 	//text-align: center;
-	border-top: 1px solid rgba(255,255,255,.5);
+	//border-top: 1px solid rgba(255,255,255,.5);
 	box-sizing: border-box;
 }
 .about > .inner-wrap{
@@ -90,14 +87,23 @@ header .header-contents  p{
 }
 
 .mission{
-	background: url('../img/street.jpg'); /*#005bea;*/
+	background: #ddd; /*background: url('../img/street.jpg'); /*#005bea;*/
 	background-attachment: fixed;
 	background-size: cover;
 	color: #fff;
+	height: 100%;
 }
 .mission > .inner-wrap{
-	height: 100vh;
+	height: 100%;
 	background: rgba(0, 55, 140, 0.7);
+	padding-bottom: 100px;
+}
+.mission > .inner-wrap .row > .col-sm-6:first-child{
+	text-align: right;
+}
+.mission > .inner-wrap .row > .col-sm-6 img{
+		text-align: center;
+		width: 70%;
 }
 .mission h2{
 	padding: 45px;
@@ -106,8 +112,13 @@ header .header-contents  p{
 }
 
 .blog{
+	height: 100%;
 	padding-top: 15px;
+	padding-bottom: 100px;
 	border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.blog > .container > .row > .col-sm-3{
+	margin-bottom: 15px;
 }
 .blog h2{
 	padding: 45px;
@@ -116,13 +127,18 @@ header .header-contents  p{
 }
 
 .activities{
-	background: url('../img/wave.jpg');
-	background-attachment: fixed;
-	background-size: cover;
+	height: 50%;
 }
 
 .store{
 	padding-top: 15px;
+	height: 100%;
+}
+.store > .container{
+	padding-bottom: 100px;
+}
+.store > .container > .row > .col-sm-4{
+	margin-bottom: 15px;
 }
 .store h2{
 	padding: 45px;
@@ -131,7 +147,7 @@ header .header-contents  p{
 }
 
 .team{
-	background: url('../img/abstract.jpg');
+	background: #ccc;
 	background-attachment: fixed;
 	background-size: cover;
 	height: 100%;
@@ -140,12 +156,19 @@ header .header-contents  p{
 	padding: 45px;
 	padding-top: 100px;
 	text-align: center;
-	color: #fff;
+	color: #000;
 }
 .team > .inner-wrap{
 	height: 100%;
 	background: rgba(255, 255, 255, 0.7);
 	padding-bottom: 100px;
+}
+.team > .inner-wrap .row{
+	text-align: center;
+}
+.team > .inner-wrap img{
+	border-radius: 50%;
+	margin-bottom: 15px;
 }
 
 .footer{
@@ -155,4 +178,73 @@ header .header-contents  p{
 }
 
 
+
+
+/* 
+	MOBILE OPTIMIZATION
+	
+*/
+@media screen and (max-width: 377px){
+	
+	/* CUSTOM-MOBILE */
+	.mobile-collapse{
+		background: #005bea;
+		padding: 15px;
+	}
+	
+	/* MOBILE DESIGN */
+	.header-contents{
+		height: 100vh;
+		padding-top: 7rem;
+		padding-bottom: 4rem;
+	}
+	.header-contents > .container{
+		width: 100%;
+	}
+	.header-contents  h1{
+		font-size: 4em;
+		color: #fff;
+	}
+	.header-contents  p{
+		font-size: 20px;
+		color: #fff;
+		line-height: 2em;
+	}
+	
+	.about{
+		height: 100%;
+	}
+	.about > .inner-wrap{
+		height: 100%;
+		padding-bottom: 2em;
+	}
+	.about  h2{
+		//padding: 45px;
+		padding-top: 100px;
+		text-align: center;
+	}
+	.about p{
+		text-align: normal;
+		font-size: 18px;
+	}
+	
+	.values{
+		height: 100%;
+		padding-bottom: 100px;
+	}
+	
+	.mission{
+		height: 100%;
+	}
+	.mission > .inner-wrap{
+		height: 100%;
+		background: rgba(0, 55, 140, 0.7);
+		padding-bottom: 100px;
+	}
+	.mission > .inner-wrap .row > .col-sm-6 img{
+		text-align: center;
+		width: 100%;
+	}
+	
+}
 
