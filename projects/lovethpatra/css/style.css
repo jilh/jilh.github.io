@@ -11,7 +11,9 @@ Tags: bootstrap, LovethPatra, Foundation
 	background: transparent !important;
 }
 .bg-blue{
-	background: #005bea;
+	background: #fff; /*#005bea;*/
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	color: #000 !important;
 }
 
 /* LAYOUT */
@@ -25,7 +27,7 @@ Tags: bootstrap, LovethPatra, Foundation
 	//background: url('../img/beggar.jpg');
 	//background-size: cover;
 	//background-repeat: no-repeat;
-	background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+	background-image: linear-gradient(to top, #1a487e 10%, #1a647e 100%);
 	padding-top: 10rem;
 	line-height: 4em;
 	text-align: center;
@@ -49,19 +51,21 @@ Tags: bootstrap, LovethPatra, Foundation
 	background-attachment: fixed;
 	background-size: cover;
 	//padding-top: 15px;
-	color: #fff;
+	color: rgba(0,0,0, 0.6);
 	//text-align: center;
 	//border-top: 1px solid rgba(255,255,255,.5);
 	box-sizing: border-box;
 }
 .about > .inner-wrap{
 	height: 100vh;
-	background: rgba(0, 72, 176, 0.8);
+	//background: rgba(0, 72, 176, 0.8);
+	background: #fff;
 }
 .about  h2{
 	padding: 45px;
 	padding-top: 100px;
 	text-align: center;
+	color: #000;
 }
 .about p{
 	text-align: center;
@@ -69,7 +73,8 @@ Tags: bootstrap, LovethPatra, Foundation
 }
 
 .values{
-	background: rgba(255, 255, 255, 0.1);
+	//background: rgba(255, 255, 255, 0.1);
+	background: #f2e8b6;
 	padding-top: 15px;
 	line-height: 3em;
 }
@@ -90,12 +95,13 @@ Tags: bootstrap, LovethPatra, Foundation
 	background: #ddd; /*background: url('../img/street.jpg'); /*#005bea;*/
 	background-attachment: fixed;
 	background-size: cover;
-	color: #fff;
+	color: rgba(0,0,0, 0.6);
 	height: 100%;
 }
 .mission > .inner-wrap{
 	height: 100%;
-	background: rgba(0, 55, 140, 0.7);
+	//background: rgba(0, 55, 140, 0.7);
+	background: #fff;
 	padding-bottom: 100px;
 }
 .mission > .inner-wrap .row > .col-sm-6:first-child{
@@ -109,6 +115,7 @@ Tags: bootstrap, LovethPatra, Foundation
 	padding: 45px;
 	padding-top: 100px;
 	text-align: center;
+	color: #000;
 }
 
 .blog{
@@ -116,6 +123,7 @@ Tags: bootstrap, LovethPatra, Foundation
 	padding-top: 15px;
 	padding-bottom: 100px;
 	border-bottom: 1px solid rgba(0,0,0,.125);
+	background: #bbbf9f;
 }
 .blog > .container > .row > .col-sm-3{
 	margin-bottom: 15px;
@@ -173,8 +181,9 @@ Tags: bootstrap, LovethPatra, Foundation
 
 .footer{
 	padding-top: 15px;
-	background: rgba(0,0,0, .10);
+	background: rgba(0,0,0, 0.7);
 	height: 50vh;
+	color: #fff;
 }
 
 
@@ -188,7 +197,7 @@ Tags: bootstrap, LovethPatra, Foundation
 	
 	/* CUSTOM-MOBILE */
 	.mobile-collapse{
-		background: #005bea;
+		background: #1a487e;
 		padding: 15px;
 	}
 	

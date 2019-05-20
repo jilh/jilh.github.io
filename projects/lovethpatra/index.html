@@ -351,10 +351,13 @@
 			function scrollDetect(){
 				if ($(window).scrollTop() > 0) {
 						$('#navBar').removeClass('bg-transparent');
+						$('#navBar').removeClass('navbar-dark');
 						$('#navBar').addClass('bg-blue');
+						$('#navBar').addClass('navbar-light');
 					}
 					if ($(window).scrollTop() < 1) {
 						$('#navBar').removeClass('bg-blue');
+						$('#navBar').addClass('navbar-dark');
 					}
 			}
 		</script>
