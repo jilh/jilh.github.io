@@ -15,6 +15,19 @@ Tags: bootstrap, LovethPatra, Foundation
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 	color: #000 !important;
 }
+.custom-btn{
+	background: #fff;
+	padding: 40px;
+	padding-top: 35px;
+	padding-bottom: 35px;
+	border-radius: 100px;
+	margin-top: 15px;
+	position: relative;
+	top: 30px;
+	color: #212529 !important;
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	font-size: 20px !important;
+}
 
 /* LAYOUT */
 .header-contents, .about, .values, .mission, .blog, .activities, .store{
@@ -86,9 +99,8 @@ Tags: bootstrap, LovethPatra, Foundation
 .values > .container > .row > .col-sm-3{
 	text-align: center;
 }
-.values > .container > .row > .col-sm-4 > b{
-	font-size: 23px;
-	font-weight: normal;
+.values > .container > .row > .col-sm-3 > b{
+	font-size: 60px;
 }
 
 .mission{
@@ -161,7 +173,7 @@ Tags: bootstrap, LovethPatra, Foundation
 }
 .activities .carousel-inner{
 	width: 100%;
-	max-height: 70vh;
+	max-height: 70vh !important;
 }
 .activities h2{
 	padding: 45px;
@@ -200,7 +212,7 @@ Tags: bootstrap, LovethPatra, Foundation
 }
 .team > .inner-wrap{
 	height: 100%;
-	background: rgba(255, 255, 255, 0.7);
+	background: #f2e8b6;
 	padding-bottom: 100px;
 }
 .team > .inner-wrap .row{
@@ -211,9 +223,8 @@ Tags: bootstrap, LovethPatra, Foundation
 	margin-bottom: 15px;
 }
 
-.footer{
-	padding-top: 15px;
-	background: rgba(0,0,0, 0.7);
+.map{
+	background: #fff;
 	height: 50vh;
 	color: #fff;
 }
@@ -297,12 +308,18 @@ Tags: bootstrap, LovethPatra, Foundation
 	}
 	.mission > .inner-wrap{
 		height: 100%;
-		background: rgba(0, 55, 140, 0.7);
 		padding-bottom: 100px;
 	}
 	.mission > .inner-wrap .row > .col-sm-6 img{
 		text-align: center;
 		width: 100%;
+	}
+	
+	.store{
+		margin-top: 0;
+	}
+	.support{
+		height: 100%;
 	}
 	
 }
