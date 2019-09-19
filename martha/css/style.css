@@ -1,0 +1,52 @@
+/** 
+CUSTOM Classes
+**/
+.bg-transparent{
+    background-color: transparent !important;
+    z-index: 2000;
+}
+.navbar-light > .navbar-brand{
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+}
+h1{
+    font-size: 50px;
+}
+.img-wish{
+    height: auto;
+    width: 70%;
+}
+.img-wrap{
+    height: 100vh;
+    background-image: url('../img/martha2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.img-wrap > .opak{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+}
+.text-pan{
+    height: 100vh;
+    background: pink;
+    text-align: center;
+}
+.text-pan > p{
+    color: rgba(0,0,0,0.8);
+    font-size: 20px;
+    line-height: 50px;
+}
+
+@media screen and (max-width: 377px){
+    .text-pan{
+        height: 100%;
+        padding: 15px !important;
+    }
+    h1{
+        font-size: 40px;
+    }
+}

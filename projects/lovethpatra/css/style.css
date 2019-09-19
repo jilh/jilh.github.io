@@ -175,6 +175,10 @@ Tags: bootstrap, LovethPatra, Foundation
 	width: 100%;
 	max-height: 70vh !important;
 }
+.activities .carousel-inner > .carousel-item > .carousel-caption{
+	top: 50%;
+    transform: translateY(-50%);
+}
 .activities h2{
 	padding: 45px;
 	padding-top: 100px;
