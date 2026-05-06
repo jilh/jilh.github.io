@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Community Strategy — The Assembly, Ogbomoso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: #1a1917;
+    background: #0f2139;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ===== CSS VARIABLES ===== */
+  :root {
+    --navy: #0f2139;
+    --blue: #1a5fa8;
+    --blue-light: #e8f1fb;
+    --orange: #e8820c;
+    --orange-light: #fdf3e7;
+    --orange-mid: #f5a840;
+    --offwhite: #f7f6f3;
+    --gray-100: #f0eeea;
+    --gray-300: #d5d2cb;
+    --gray-500: #8c8880;
+    --gray-700: #4a4845;
+    --text: #1a1917;
+    --white: #ffffff;
+    --teal: #0f6e56;
+    --teal-light: #e6f5f0;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --transition: 0.45s ease;
+  }
+
+  /* ===== SCREEN SYSTEM ===== */
+  .screen {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition), transform var(--transition);
+    transform: translateY(20px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .screen.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+    z-index: 10;
+  }
+  .screen.exit-up {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    z-index: 5;
+  }
+  .screen.exit-down {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* ===== SHARED COMPONENTS ===== */
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    gap: 16px;
+  }
+  .sticky-header.dark {
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: default;
+  }
+  .logo-mark .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--orange);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-mark .logo-icon svg { width: 18px; height: 18px; fill: white; }
+  .logo-mark .logo-text { font-family: 'Fraunces', serif; font-weight: 700; font-size: 15px; color: var(--navy); letter-spacing: -0.3px; }
+  .logo-mark .logo-text span { color: var(--orange); }
+  .sticky-header.dark .logo-mark .logo-text { color: var(--white); }
+  .header-center { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-500); letter-spacing: 0.3px; text-align: center; }
+  .sticky-header.dark .header-center { color: rgba(255,255,255,0.5); }
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-orange {
+    background: var(--orange);
+    color: var(--white);
+  }
+  .btn-orange:hover { background: #d4720a; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,130,12,0.35); }
+  .btn-outline {
+    background: transparent;
+    color: var(--navy);
+    border: 1.5px solid var(--gray-300);
+  }
+  .btn-outline:hover { border-color: var(--navy); background: var(--gray-100); }
+  .btn-outline-white {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+  .btn-outline-white:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.1); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--gray-700);
+    padding: 9px 14px;
+  }
+  .btn-ghost:hover { color: var(--navy); background: var(--gray-100); }
+  .btn-lg {
+    padding: 16px 36px;
+    font-size: 15px;
+  }
+
+  /* ===== SCREEN 1 — COVER ===== */
+  #screen-cover {
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  .cover-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .cover-bg circle { fill: none; stroke: rgba(255,255,255,0.04); }
+  .cover-bg .c1 { stroke: rgba(232,130,12,0.12); }
+  .cover-bg .c2 { stroke: rgba(26,95,168,0.15); }
+  .cover-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 24px;
+    max-width: 780px;
+  }
+  .cover-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cover-eyebrow::before, .cover-eyebrow::after {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--orange);
+    opacity: 0.5;
+  }
+  .cover-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
+  }
+  .cover-title span { color: var(--orange); }
+  .cover-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.2vw, 21px);
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 48px;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+  .stat-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+  .stat-pill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  /* ===== SCREEN 2 — STRATEGY MAP ===== */
+  #screen-map { background: var(--offwhite); }
+  #screen-map .sticky-header { background: var(--white); }
+
+  .map-intro {
+    text-align: center;
+    padding: 48px 24px 32px;
+  }
+  .map-intro-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    letter-spacing: -0.8px;
+  }
+  .map-intro-sub {
+    font-size: 15px;
+    color: var(--gray-500);
+    font-weight: 400;
+  }
+
+  .map-layers { padding: 0 24px 80px; max-width: 1100px; margin: 0 auto; }
+
+  .layer-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 10px;
+    padding-left: 2px;
+  }
+
+  .layer-arrow {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    color: var(--gray-300);
+  }
+  .layer-arrow svg { width: 24px; height: 24px; }
+
+  /* Mission node */
+  .mission-node {
+    width: 100%;
+    background: var(--navy);
+    border-radius: var(--radius-lg);
+    padding: 28px 36px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 0;
+  }
+  .mission-node:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(15,33,57,0.35); }
+  .mission-node-left { display: flex; flex-direction: column; gap: 6px; }
+  .mission-node-tag { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); }
+  .mission-node-title { font-family: 'Fraunces', serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: var(--white); letter-spacing: -0.4px; }
+  .mission-node-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .mission-node-arrow { width: 36px; height: 36px; background: var(--orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mission-node-arrow svg { width: 16px; height: 16px; fill: white; }
+
+  /* Grid nodes */
+  .node-grid { display: grid; gap: 12px; }
+  .node-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .node-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .node-card {
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1.5px solid transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 100px;
+  }
+  .node-card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,0,0,0.12); }
+  .node-card .card-icon { font-size: 20px; margin-bottom: 2px; }
+  .node-card .card-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.65; }
+  .node-card .card-title { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; line-height: 1.3; letter-spacing: -0.2px; }
+  .node-card .card-sub { font-size: 12px; opacity: 0.65; margin-top: 2px; }
+  .node-card .card-arrow { margin-top: auto; font-size: 13px; opacity: 0; transition: opacity 0.2s ease; }
+  .node-card:hover .card-arrow { opacity: 0.7; }
+
+  /* Node themes */
+  .theme-blue { background: var(--blue-light); border-color: rgba(26,95,168,0.15); color: var(--blue); }
+  .theme-blue .card-title { color: var(--navy); }
+  .theme-orange { background: var(--orange-light); border-color: rgba(232,130,12,0.15); color: var(--orange); }
+  .theme-orange .card-title { color: var(--navy); }
+  .theme-teal { background: var(--teal-light); border-color: rgba(15,110,86,0.15); color: var(--teal); }
+  .theme-teal .card-title { color: var(--navy); }
+  .theme-navy { background: var(--navy); border-color: transparent; color: rgba(255,255,255,0.6); }
+  .theme-navy .card-title { color: var(--white); }
+  .theme-gray { background: var(--gray-100); border-color: var(--gray-300); color: var(--gray-700); }
+  .theme-gray .card-title { color: var(--text); }
+
+  /* ===== SCREEN 3 — DETAIL ===== */
+  #screen-detail { background: var(--white); }
+  .detail-body { max-width: 800px; margin: 0 auto; padding: 52px 32px 100px; }
+  .detail-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; }
+  .detail-title { font-family: 'Fraunces', serif; font-size: clamp(28px, 4.5vw, 48px); font-weight: 700; color: var(--navy); line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
+  .detail-lead { font-family: 'Fraunces', serif; font-style: italic; font-size: 18px; font-weight: 300; color: var(--gray-700); line-height: 1.65; margin-bottom: 28px; }
+  .detail-divider { height: 3px; width: 48px; background: var(--orange); border-radius: 2px; margin-bottom: 40px; }
+
+  .detail-section { margin-bottom: 36px; }
+  .detail-section h3 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--navy); margin-bottom: 14px; letter-spacing: -0.3px; }
+  .detail-section p { font-size: 15px; line-height: 1.75; color: var(--gray-700); margin-bottom: 12px; }
+  .detail-section ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .detail-section ul li { font-size: 14.5px; color: var(--gray-700); line-height: 1.6; display: flex; gap: 10px; align-items: flex-start; }
+  .detail-section ul li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 7px; }
+
+  .highlight-box {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin: 20px 0;
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .highlight-box strong { color: var(--orange-mid); }
+  .highlight-box p { color: rgba(255,255,255,0.75); margin-bottom: 8px; }
+  .highlight-box p:last-child { margin-bottom: 0; }
+
+  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+  .metric-card { background: var(--gray-100); border-radius: var(--radius); padding: 18px 16px; }
+  .metric-card .metric-val { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; }
+  .metric-card .metric-label { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+
+  .tag-pills-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .tag-pill { display: inline-flex; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+  .tag-pill.orange { background: var(--orange-light); color: var(--orange); }
+  .tag-pill.blue { background: var(--blue-light); color: var(--blue); }
+  .tag-pill.teal { background: var(--teal-light); color: var(--teal); }
+  .tag-pill.navy { background: rgba(15,33,57,0.08); color: var(--navy); }
+  .tag-pill.gray { background: var(--gray-100); color: var(--gray-700); }
+
+  /* ===== SCREEN 4 — NEXT STEPS ===== */
+  #screen-next { background: var(--offwhite); }
+  .next-body { max-width: 880px; margin: 0 auto; padding: 52px 32px 100px; }
+  .next-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+  .next-title { font-family: 'Fraunces', serif; font-size: clamp(30px, 5vw, 52px); font-weight: 700; color: var(--navy); letter-spacing: -1px; margin-bottom: 16px; }
+  .next-lead { font-size: 15px; color: var(--gray-700); line-height: 1.7; max-width: 580px; margin-bottom: 52px; }
+
+  .week-block { margin-bottom: 44px; }
+  .week-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .week-badge { background: var(--navy); color: var(--white); border-radius: 100px; padding: 6px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+  .week-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 600; color: var(--navy); letter-spacing: -0.3px; }
+
+  .step-cards { display: flex; flex-direction: column; gap: 10px; }
+  .step-card { background: var(--white); border-radius: var(--radius); padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; border: 1px solid var(--gray-300); }
+  .step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--blue); color: white; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-content { flex: 1; }
+  .step-title { font-weight: 600; font-size: 14.5px; color: var(--text); margin-bottom: 4px; }
+  .step-desc { font-size: 13.5px; color: var(--gray-700); line-height: 1.6; }
+  .step-tag { display: inline-flex; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; margin-top: 8px; }
+  .tag-leadership { background: #fde8ef; color: #c0185a; }
+  .tag-technical { background: var(--blue-light); color: var(--blue); }
+  .tag-community { background: var(--teal-light); color: var(--teal); }
+  .tag-launch { background: var(--orange-light); color: var(--orange); }
+
+  .closing-cta {
+    background: var(--navy);
+    border-radius: var(--radius-lg);
+    padding: 44px 48px;
+    margin-top: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-cta::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,130,12,0.2);
+  }
+  .closing-cta::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -30px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .closing-cta-quote { font-family: 'Fraunces', serif; font-size: clamp(18px, 2.5vw, 24px); font-style: italic; font-weight: 300; color: rgba(255,255,255,0.9); line-height: 1.6; margin-bottom: 24px; position: relative; z-index: 1; }
+  .closing-cta-sub { font-size: 14px; color: rgba(255,255,255,0.45); position: relative; z-index: 1; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .node-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+    .node-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+    .map-layers { padding: 0 14px 60px; }
+    .detail-body { padding: 36px 20px 80px; }
+    .next-body { padding: 36px 20px 80px; }
+    .sticky-header { padding: 12px 16px; }
+    .header-center { display: none; }
+    .mission-node { padding: 20px 20px; }
+    .closing-cta { padding: 30px 24px; }
+  }
+  @media (max-width: 400px) {
+    .node-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+    .node-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== SCREEN 1: COVER ===== -->
+<div id="screen-cover" class="screen active">
+  <svg class="cover-bg" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">
+    <circle class="c1" cx="900" cy="150" r="300" stroke-width="1.5"/>
+    <circle cx="900" cy="150" r="200" stroke-width="1"/>
+    <circle class="c2" cx="150" cy="600" r="250" stroke-width="1.5"/>
+    <circle cx="150" cy="600" r="150" stroke-width="1"/>
+    <circle cx="600" cy="400" r="400" stroke-width="0.5"/>
+    <circle cx="1100" cy="700" r="180" stroke-width="0.8" stroke="rgba(255,255,255,0.03)"/>
+  </svg>
+
+  <div class="cover-content">
+    <div class="cover-eyebrow">The Assembly · Ogbomoso · 2025–2026</div>
+    <h1 class="cover-title">Developer<br><span>Community</span><br>Strategy</h1>
+    <p class="cover-subtitle">A 12-month plan to build a cluster of redemptive genius engineers</p>
+    <div class="stat-pills">
+      <div class="stat-pill"><span class="stat-pill-dot"></span>₦2M – ₦5M Budget</div>
+      <div class="stat-pill"><span class="stat-pill-dot"></span>12 Months Timeline</div>
+      <div class="stat-pill"><span class="stat-pill-dot"></span>100+ Target Members</div>
+      <div class="stat-pill"><span class="stat-pill-dot"></span>Hybrid Revenue Model</div>
+    </div>
+    <button class="btn btn-orange btn-lg" onclick="goTo('map')">
+      View Strategy Map
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ===== SCREEN 2: STRATEGY MAP ===== -->
+<div id="screen-map" class="screen">
+  <div class="sticky-header">
+    <div class="logo-mark">
+      <div class="logo-icon">
+        <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="6" height="6" rx="1.5"/><rect x="10" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="10" width="6" height="6" rx="1.5"/><rect x="10" y="10" width="6" height="6" rx="1.5"/></svg>
+      </div>
+      <div class="logo-text">The <span>Assembly</span></div>
+    </div>
+    <div class="header-center">Developer Community Strategy Map</div>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="goTo('cover')">← Cover</button>
+      <button class="btn btn-orange" onclick="goTo('next')">Next Steps →</button>
+    </div>
+  </div>
+
+  <div class="map-intro">
+    <div class="map-intro-title">Strategy at a Glance</div>
+    <div class="map-intro-sub">Click any layer to explore the full detail</div>
+  </div>
+
+  <div class="map-layers">
+    <!-- Layer 0: Mission -->
+    <div class="layer-label">Mission</div>
+    <div class="mission-node" onclick="showDetail('mission')">
+      <div class="mission-node-left">
+        <div class="mission-node-tag">Core Purpose</div>
+        <div class="mission-node-title">Redemptive Genius Engineers</div>
+        <div class="mission-node-sub">Build a cluster of holistic, purpose-driven software engineers in Ogbomoso</div>
+      </div>
+      <div class="mission-node-arrow">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <div class="layer-arrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Layer 1: Four Pillars -->
+    <div class="layer-label">Strategic Pillars</div>
+    <div class="node-grid cols-4">
+      <div class="node-card theme-blue" onclick="showDetail('ailab')">
+        <div class="card-icon">🤖</div>
+        <div class="card-tag">Pillar 01</div>
+        <div class="card-title">AI Lab</div>
+        <div class="card-sub">Local Ollama + open-source LLMs</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-orange" onclick="showDetail('learning')">
+        <div class="card-icon">📚</div>
+        <div class="card-tag">Pillar 02</div>
+        <div class="card-title">Learning Ecosystem</div>
+        <div class="card-sub">Project-push, Junior → Senior</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-teal" onclick="showDetail('events')">
+        <div class="card-icon">📅</div>
+        <div class="card-tag">Pillar 03</div>
+        <div class="card-title">Events & Programming</div>
+        <div class="card-sub">Workshops, meetups, conferences</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-navy" onclick="showDetail('culture')">
+        <div class="card-icon">🤝</div>
+        <div class="card-tag">Pillar 04</div>
+        <div class="card-title">Culture & Belonging</div>
+        <div class="card-sub">Covenant, pods, incentives</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="layer-arrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Layer 2: Four Phases -->
+    <div class="layer-label">12-Month Phases</div>
+    <div class="node-grid cols-4">
+      <div class="node-card theme-blue" onclick="showDetail('phase1')">
+        <div class="card-tag">Phase 01 · Months 1–3</div>
+        <div class="card-title">Foundation & Infrastructure</div>
+        <div class="card-sub">Server setup · Launch · 30 members</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-teal" onclick="showDetail('phase2')">
+        <div class="card-tag">Phase 02 · Months 4–6</div>
+        <div class="card-title">Growth & Programming</div>
+        <div class="card-sub">GDG joint · Conference · 60 members</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-orange" onclick="showDetail('phase3')">
+        <div class="card-tag">Phase 03 · Months 7–9</div>
+        <div class="card-title">Momentum & Innovation</div>
+        <div class="card-sub">AI workshop · Hackathon · 80 members</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-navy" onclick="showDetail('phase4')">
+        <div class="card-tag">Phase 04 · Months 10–12</div>
+        <div class="card-title">Harvest & Showcase</div>
+        <div class="card-sub">Product sprint · Conference · 100+ members</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="layer-arrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Layer 3: Partnerships -->
+    <div class="layer-label">Partnerships</div>
+    <div class="node-grid cols-3">
+      <div class="node-card theme-gray" onclick="showDetail('osca')">
+        <div class="card-icon">🌍</div>
+        <div class="card-tag">Partner</div>
+        <div class="card-title">OSCA</div>
+        <div class="card-sub">Open Source Community Africa</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-gray" onclick="showDetail('gdg')">
+        <div class="card-icon">🔵</div>
+        <div class="card-tag">Partner</div>
+        <div class="card-title">GDG</div>
+        <div class="card-sub">Google Developer Group</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-gray" onclick="showDetail('mentors')">
+        <div class="card-icon">👩‍💻</div>
+        <div class="card-tag">Network</div>
+        <div class="card-title">External Mentors</div>
+        <div class="card-sub">Industry practitioners & facilitators</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="layer-arrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Layer 4: Membership -->
+    <div class="layer-label">Membership Tiers</div>
+    <div class="node-grid cols-3">
+      <div class="node-card theme-gray" onclick="showDetail('tier-free')">
+        <div class="card-tag">Tier 01</div>
+        <div class="card-title">Free Member</div>
+        <div class="card-sub">₦0 / month · Community access</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-blue" onclick="showDetail('tier-core')">
+        <div class="card-tag">Tier 02</div>
+        <div class="card-title">Core Member</div>
+        <div class="card-sub">₦3,000–₦5,000/month · AI Lab</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-orange" onclick="showDetail('tier-builder')">
+        <div class="card-tag">Tier 03</div>
+        <div class="card-title">Builder Member</div>
+        <div class="card-sub">₦8,000–₦12,000/month · Dedicated desk</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="layer-arrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Layer 5: Revenue -->
+    <div class="layer-label">Revenue Streams</div>
+    <div class="node-grid cols-4">
+      <div class="node-card theme-orange" onclick="showDetail('revenue')">
+        <div class="card-icon">👥</div>
+        <div class="card-tag">Revenue 01</div>
+        <div class="card-title">Memberships</div>
+        <div class="card-sub">₦220K+/month target</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-orange" onclick="showDetail('revenue')">
+        <div class="card-icon">🎓</div>
+        <div class="card-tag">Revenue 02</div>
+        <div class="card-title">Workshops</div>
+        <div class="card-sub">₦2K–₦5K per event</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-orange" onclick="showDetail('revenue')">
+        <div class="card-icon">🏢</div>
+        <div class="card-tag">Revenue 03</div>
+        <div class="card-title">Sponsorships</div>
+        <div class="card-sub">₦50K–₦200K per conference</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-orange" onclick="showDetail('revenue')">
+        <div class="card-icon">⚡</div>
+        <div class="card-tag">Revenue 04</div>
+        <div class="card-title">AI Lab API</div>
+        <div class="card-sub">External startups · from Month 9</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+
+    <div class="layer-arrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Layer 6: Outcomes -->
+    <div class="layer-label">Year 1 Outcomes</div>
+    <div class="node-grid cols-4">
+      <div class="node-card theme-teal" onclick="showDetail('outcomes')">
+        <div class="card-title">100+ Active Members</div>
+        <div class="card-sub">50+ paying members</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-teal" onclick="showDetail('outcomes')">
+        <div class="card-title">15+ Projects Shipped</div>
+        <div class="card-sub">Public on GitHub</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-teal" onclick="showDetail('outcomes')">
+        <div class="card-title">₦500K+/month</div>
+        <div class="card-sub">Community revenue</div>
+        <div class="card-arrow">→</div>
+      </div>
+      <div class="node-card theme-teal" onclick="showDetail('outcomes')">
+        <div class="card-title">5+ Promotions</div>
+        <div class="card-sub">Junior → Senior progressions</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SCREEN 3: DETAIL ===== -->
+<div id="screen-detail" class="screen">
+  <div class="sticky-header">
+    <div class="header-actions">
+      <button class="btn btn-ghost" onclick="goTo('map')">← Back to Map</button>
+    </div>
+    <div class="logo-mark">
+      <div class="logo-icon">
+        <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="6" height="6" rx="1.5"/><rect x="10" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="10" width="6" height="6" rx="1.5"/><rect x="10" y="10" width="6" height="6" rx="1.5"/></svg>
+      </div>
+      <div class="logo-text">The <span>Assembly</span></div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-orange" onclick="goTo('next')">Next Steps →</button>
+    </div>
+  </div>
+  <div class="detail-body" id="detail-content">
+    <!-- Dynamically rendered -->
+  </div>
+</div>
+
+<!-- ===== SCREEN 4: NEXT STEPS ===== -->
+<div id="screen-next" class="screen">
+  <div class="sticky-header">
+    <div class="header-actions">
+      <button class="btn btn-ghost" onclick="goTo('map')">← Back to Map</button>
+    </div>
+    <div class="logo-mark">
+      <div class="logo-icon">
+        <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="6" height="6" rx="1.5"/><rect x="10" y="2" width="6" height="6" rx="1.5"/><rect x="2" y="10" width="6" height="6" rx="1.5"/><rect x="10" y="10" width="6" height="6" rx="1.5"/></svg>
+      </div>
+      <div class="logo-text">The <span>Assembly</span></div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-outline" onclick="goTo('cover')">← Cover</button>
+    </div>
+  </div>
+
+  <div class="next-body">
+    <div class="next-eyebrow">Action Plan</div>
+    <h1 class="next-title">The First 30 Days</h1>
+    <p class="next-lead">Before you build the community, you must build the container. These 15 steps across four weeks transform the strategy into a living, breathing reality in Ogbomoso.</p>
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-badge">Week 1</div>
+        <div class="week-title">Foundations & Recruitment</div>
+      </div>
+      <div class="step-cards">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Approve the Budget</div>
+            <div class="step-desc">Review the ₦2M–₦5M budget allocation with The Assembly leadership. Get written sign-off on Phase 1 spend, including server hardware procurement and initial operating costs.</div>
+            <div class="step-tag tag-leadership">Leadership</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Order Server Hardware</div>
+            <div class="step-desc">Place orders for the AI Lab server: AMD Ryzen 9/Intel i9 PC, NVIDIA RTX 4060 or 3080 GPU, 64GB RAM, NVMe SSD + HDD, APC UPS, and gigabit network switch. Budget: ₦815K–₦1.2M.</div>
+            <div class="step-tag tag-technical">Technical</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Set Up Community Channels</div>
+            <div class="step-desc">Create the Discord server (with channels: #general, #projects, #resources, #jobs, #ai-lab), WhatsApp announcement group, and GitHub organisation for The Assembly Ogbomoso.</div>
+            <div class="step-tag tag-community">Community</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Begin Branding & Identity Work</div>
+            <div class="step-desc">Commission or create visual assets: community logo, event templates, social media headers, and a short community one-pager. Align with The Assembly's existing brand identity.</div>
+            <div class="step-tag tag-leadership">Leadership</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">Personally Invite 20 Developers</div>
+            <div class="step-desc">Make a handwritten list of the 20 most promising developers you know in Ogbomoso — students, self-taught, professionals. Call or meet each one personally. These are your founding 20. Do not mass-blast at this stage.</div>
+            <div class="step-tag tag-community">Community</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-badge">Week 2</div>
+        <div class="week-title">Infrastructure & Partnerships</div>
+      </div>
+      <div class="step-cards">
+        <div class="step-card">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">Configure the AI Lab Server</div>
+            <div class="step-desc">Set up Ubuntu Server on the AI Lab machine. Install Ollama and pull initial models: DeepSeek Coder 6.7B, Llama 3.1 8B, CodeLlama 13B, and Mistral 7B. Test inference locally and confirm Starlink + UPS are working.</div>
+            <div class="step-tag tag-technical">Technical</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-title">Write the Continue.dev Setup Guide</div>
+            <div class="step-desc">Create a step-by-step guide for members to install the Continue.dev VSCode extension and point it to the local Ollama server IP. Include screenshots, troubleshooting tips, and model selection guidance.</div>
+            <div class="step-tag tag-technical">Technical</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">8</div>
+          <div class="step-content">
+            <div class="step-title">Publish the Membership Landing Page</div>
+            <div class="step-desc">Launch a simple, well-designed landing page (theassembly.city or subdomain) describing the community, the three membership tiers with pricing, and a sign-up form or waitlist link.</div>
+            <div class="step-tag tag-launch">Launch</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">9</div>
+          <div class="step-content">
+            <div class="step-title">Brief OSCA and GDG Leads</div>
+            <div class="step-desc">Schedule meetings with the OSCA and GDG chapter leads in Ogbomoso. Share the community strategy, confirm the partnership model, align on co-hosting responsibilities, and agree on the first joint event date.</div>
+            <div class="step-tag tag-community">Community</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-badge">Week 3</div>
+        <div class="week-title">Launch Event Preparation</div>
+      </div>
+      <div class="step-cards">
+        <div class="step-card">
+          <div class="step-num">10</div>
+          <div class="step-content">
+            <div class="step-title">Set Launch Event Date & Create Event Page</div>
+            <div class="step-desc">Choose a date for the Community Launch Meetup (target: end of Month 1 or early Month 2). Create an event page on Eventbrite or a custom page. Set registration to free and begin promoting across channels.</div>
+            <div class="step-tag tag-launch">Launch</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">11</div>
+          <div class="step-content">
+            <div class="step-title">Draft the Community Covenant</div>
+            <div class="step-desc">Write the Founding Covenant as a beautifully formatted document: 5 principles — excellence as worship, lifting each other, solving real problems, staying humble, and being redemptive. This will be signed or pledged at the launch event.</div>
+            <div class="step-tag tag-community">Community</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">12</div>
+          <div class="step-content">
+            <div class="step-title">Plan the Launch Event Programme</div>
+            <div class="step-desc">Design a 2–3 hour programme: welcome and vision talk, AI Lab demo, community structure overview, Covenant reading, open Q&A, and informal networking. Assign roles to founding members and partners. Prepare the AI Lab demo script.</div>
+            <div class="step-tag tag-launch">Launch</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header">
+        <div class="week-badge">Week 4</div>
+        <div class="week-title">Launch & Review</div>
+      </div>
+      <div class="step-cards">
+        <div class="step-card">
+          <div class="step-num">13</div>
+          <div class="step-content">
+            <div class="step-title">Host the Community Launch Meetup</div>
+            <div class="step-desc">Execute the launch event. Introduce The Assembly developer community to Ogbomoso. Demo the AI Lab live. Invite attendees to sign the Community Covenant. Capture video and photos for documentation and social proof.</div>
+            <div class="step-tag tag-launch">Launch</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">14</div>
+          <div class="step-content">
+            <div class="step-title">Send the First Newsletter</div>
+            <div class="step-desc">Within 48 hours of the launch, send the first community newsletter: recap of the launch, AI Lab access instructions, Month 2 events preview, curated learning resources, and how to upgrade to Core or Builder membership.</div>
+            <div class="step-tag tag-community">Community</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">15</div>
+          <div class="step-content">
+            <div class="step-title">Review Weeks 1–4 and Set Month 2 Targets</div>
+            <div class="step-desc">Hold an internal retrospective: what worked, what didn't, how many members joined, what the energy is like. Set concrete Month 2 targets (member count, first paid members, first workshop date) and assign owners to each.</div>
+            <div class="step-tag tag-leadership">Leadership</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="closing-cta">
+      <div class="closing-cta-quote">"The most important tool is not Ollama. It's the first 20 developers you personally invite."</div>
+      <div class="closing-cta-sub">Start there. Everything else follows.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DETAIL DATA =====
+const detailData = {
+
+  mission: {
+    eyebrow: 'Core Purpose',
+    title: 'Redemptive Genius Engineers',
+    lead: 'The Assembly is not building another tech club. It is building a movement — a cluster of engineers who are as excellent in character as they are in code, rooted in Ogbomoso, reaching beyond it.',
+    sections: [
+      {
+        type: 'highlight',
+        content: `<p><strong>What is a Redemptive Genius Engineer?</strong></p><p>Someone who combines <strong>technical mastery</strong> (they can ship, they can lead, they can build products) with <strong>redemptive character</strong> (they lift others, they are humble, they give second chances, they solve real problems for real people). These are not mythical beings — they are the kind of engineers that every great team wants and every great community produces.</p>`
+      },
+      {
+        type: 'h3', label: 'Why Ogbomoso?',
+        content: `<p>Ogbomoso is not Lagos. It is not Abuja. That is precisely the point. The cities that have historically been overlooked are often the ones with the most untapped talent, the most hunger, and the most to prove. The Assembly's bet is that world-class engineers can emerge from anywhere — if the right environment is built around them.</p><p>The Assembly already exists as a physical innovation workspace. The developer community is the lifeblood that fills it with energy, output, and purpose.</p>`
+      },
+      {
+        type: 'h3', label: 'The Five Founding Covenants',
+        items: [
+          'We build with excellence because our work is a form of worship',
+          'We lift each other because none of us rises alone',
+          'We solve real problems because our city deserves our best',
+          'We stay humble because the best engineers never stop learning',
+          'We are redemptive — we give second chances because we needed one too'
+        ]
+      },
+      {
+        type: 'h3', label: 'Who We Are Building For',
+        items: [
+          'Students — those who are curious, early in their journey, and need a community of peers more than they need a classroom',
+          'Self-taught developers — those who have been grinding alone, building without feedback, and need a place to be seen and challenged',
+          'Working professionals — those who are already employed but want to grow faster, contribute to open source, and eventually lead or start something'
+        ]
+      },
+      {
+        type: 'h3', label: 'The Real Measure of Success',
+        content: `<p>This community succeeds when a developer who walked in as a Level 0 Explorer walks out 18 months later as a Level 3 Senior — with GitHub commits, a portfolio, a startup, or a job offer. And when that person, without being asked, starts mentoring the next Level 0 who walks in behind them. That cycle is the mission. Everything else is infrastructure for it.</p>`
+      },
+      {
+        type: 'metrics',
+        items: [
+          { val: '100+', label: 'Target Members by Month 12' },
+          { val: '50+', label: 'Paying Members (Core + Builder)' },
+          { val: '15+', label: 'Projects Shipped on GitHub' },
+          { val: '5+', label: 'Junior → Senior Progressions' }
+        ]
+      }
+    ]
+  },
+
+  ailab: {
+    eyebrow: 'Strategic Pillar 01',
+    title: 'The AI Lab',
+    lead: 'A locally hosted, open-source AI environment — free for all members — giving Ogbomoso developers access to the same cutting-edge tools used in Silicon Valley, without the cost, latency, or data sovereignty concerns.',
+    sections: [
+      {
+        type: 'h3', label: 'Why a Local AI Lab?',
+        content: `<p>API costs for commercial AI models (OpenAI, Anthropic) are prohibitive for students and early developers in Nigeria. A local Ollama server removes that barrier entirely. Every member gets free, fast, private access to open-source LLMs for code completion, debugging, documentation, and learning. This is a differentiated offering that very few developer communities in West Africa can provide.</p>`
+      },
+      {
+        type: 'h3', label: 'Hardware Specification',
+        items: [
+          'CPU: AMD Ryzen 9 or Intel i9 — ₦350,000–₦500,000 — high core count for multi-model serving and concurrent user sessions',
+          'GPU: NVIDIA RTX 4060 (8GB VRAM, best value) or RTX 3080 (10GB VRAM, more capacity) — ₦300,000–₦450,000 — handles all target models without quantisation issues',
+          'RAM: 64GB DDR4/DDR5 — essential for loading multiple large models simultaneously and running system processes alongside inference',
+          'Storage: 1TB NVMe SSD (OS + active models) + 2TB HDD (model library, archived data) — ₦80,000–₦120,000',
+          'UPS: APC Back-UPS 1500VA — ₦60,000–₦90,000 — protects hardware during power fluctuations, paired with generator backup',
+          'Network: Gigabit switch — ₦25,000–₦40,000 — ensures fast local network access for all simultaneous users',
+          'Total hardware budget: ₦815,000–₦1,200,000'
+        ]
+      },
+      {
+        type: 'h3', label: 'Hosted AI Models',
+        items: [
+          'DeepSeek Coder 6.7B — Fast, lightweight, excellent for code completion. Default model for most members',
+          'DeepSeek Coder 33B — Slower but significantly more capable. For complex refactors and architecture discussions',
+          'Llama 3.1 8B — General purpose reasoning and explanation. Great for documentation, code review commentary',
+          'CodeLlama 13B — Meta\'s code-focused model. Strong on multi-language tasks and debugging',
+          'Mistral 7B — Fast general model. Good for chat-style interactions, project scoping, and ideation'
+        ]
+      },
+      {
+        type: 'h3', label: '5-Step Member Setup',
+        items: [
+          'Step 1: Connect to The Assembly Wi-Fi (Starlink network)',
+          'Step 2: Install the Continue.dev extension in VSCode from the Extensions Marketplace',
+          'Step 3: Open Continue.dev settings and add a new model provider with type: "ollama" and base URL: the local server IP',
+          'Step 4: Select your model from the dropdown (start with DeepSeek Coder 6.7B for speed)',
+          'Step 5: Open any code file and press the keyboard shortcut to trigger inline suggestions — you now have free, private AI code assistance'
+        ]
+      },
+      {
+        type: 'h3', label: 'Infrastructure',
+        content: `<p>The server runs Ubuntu Server LTS, chosen for stability and ease of maintenance. Ollama provides a simple, well-maintained API layer for model serving. Starlink provides the internet uplink for external lookups and documentation. The generator backup and UPS ensure the server stays online during power outages — a critical reliability consideration in Ogbomoso.</p>`
+      },
+      {
+        type: 'h3', label: 'Future Expansion (Month 9+)',
+        items: [
+          'AI Lab API Access for External Startups — charged service allowing non-members to query the local models via API, creating a new revenue stream',
+          'Fine-tuned models on Ogbomoso-specific datasets — local government data, Yoruba language corpora, Nigerian business data',
+          'Potential upgrade to RTX 4090 or dual-GPU setup as the community scales and usage grows',
+          'Public showcase of AI-built projects at quarterly Demo Days to establish The Assembly as an AI innovation hub'
+        ]
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>The strategic edge:</strong> While most developer communities in Nigeria rely on free-tier cloud APIs that throttle, lag, and expire, The Assembly's AI Lab gives members a <strong>consistent, always-on, zero-cost</strong> AI coding environment. This is the single most compelling reason for a developer in Ogbomoso to choose The Assembly over working from home or a café.</p>`
+      }
+    ]
+  },
+
+  learning: {
+    eyebrow: 'Strategic Pillar 02',
+    title: 'Learning Ecosystem',
+    lead: 'Not a bootcamp. Not a curriculum. A living, breathing system where developers grow by building things, shipping things, breaking things, and teaching things — in that order.',
+    sections: [
+      {
+        type: 'h3', label: 'The Core Philosophy',
+        content: `<p>Rigid curriculum produces graduates. Project-push models produce engineers. The Assembly runs on a project-push model: every member is always shipping something. The community provides the resources, feedback, accountability, and challenge — but the member drives their own growth. Mentors guide; they do not hand-hold. AI accelerates; it does not replace thinking.</p>`
+      },
+      {
+        type: 'h3', label: 'The Levelling Framework',
+        items: [
+          'Level 0 — Explorer: Curious, attending events, learning the basics, reading documentation. Not yet consistently shipping. The community is a discovery space.',
+          'Level 1 — Builder: Shipping small but complete projects consistently. Active in community channels. Takes feedback and iterates. Beginning to pair with others.',
+          'Level 2 — Craftsman: Builds reliably and to a high standard. Reviews other people\'s code. Leads or co-leads workshops. Has at least one significant open-source contribution. Is a go-to person for specific topics.',
+          'Level 3 — Senior: Actively mentors Level 0 and Level 1 members. Contributes meaningfully to open-source projects (OSCA-aligned or beyond). Helps shape the direction of the community. May be building a startup, freelancing seriously, or working in a senior role.'
+        ]
+      },
+      {
+        type: 'h3', label: 'Quarterly Challenges',
+        items: [
+          'Q1 Challenge: Build a tool that solves a real problem in Ogbomoso — forced local focus, product thinking, and end-user empathy',
+          'Q2 Challenge: Contribute to an existing open source project (OSCA-aligned) — community identity, collaboration, and version control mastery',
+          'Q3 Challenge: Build an AI-powered app using the local Ollama server — applied ML, prompt engineering, and differentiated portfolio piece',
+          'Q4 Challenge: Product Sprint — build something to sell or launch — commercial thinking, MVP discipline, and Demo Day presentation'
+        ]
+      },
+      {
+        type: 'h3', label: 'Curated Learning Tracks',
+        items: [
+          'Web Development Track: HTML/CSS → JavaScript → React/Next.js → backend APIs → deployment',
+          'Backend & Systems Track: Python/Node.js → databases → REST APIs → DevOps basics → cloud',
+          'Open Source Track: Git mastery → issue triage → first PR → project maintainer skills',
+          'AI Engineering Track: Prompt engineering → Ollama/local LLMs → LangChain basics → building AI-powered apps',
+          'Freelancing & Career Track: Portfolio building → LinkedIn optimisation → client acquisition → pricing your work'
+        ]
+      },
+      {
+        type: 'h3', label: 'Accountability Pods',
+        content: `<p>Core and Builder members are placed into Accountability Pods: groups of 4–6 developers at similar levels. Each pod has a weekly check-in (async or 30 min sync) where members share: what they shipped this week, what they\'re stuck on, and what they\'ll ship next week. Pods are reshuffled every quarter to expose members to diverse perspectives and skill sets.</p>`
+      },
+      {
+        type: 'h3', label: 'Mentorship Structure',
+        items: [
+          'Internal mentorship: Level 2 and 3 members are matched with Level 0 and 1 members for 1:1 monthly check-ins',
+          'External mentors: Industry practitioners from Lagos, Ibadan, and the diaspora join virtually for quarterly sessions',
+          'Portfolio reviews: Builder-tier members get monthly portfolio reviews from internal and external reviewers',
+          'Workshop leadership: Level 2+ members are expected to lead at least one workshop per quarter — teaching accelerates mastery'
+        ]
+      }
+    ]
+  },
+
+  events: {
+    eyebrow: 'Strategic Pillar 03',
+    title: 'Events & Programming',
+    lead: 'Events are not marketing. They are the primary mechanism through which the community forms, grows, and proves its value. Every event must leave attendees measurably better than when they arrived.',
+    sections: [
+      {
+        type: 'h3', label: 'Event Hierarchy',
+        items: [
+          'Workshops (Primary): Technical, hands-on, 2–4 hours. Members leave with something built or learned that they can apply immediately. Target: 2 per month by Month 4.',
+          'Meetups: Community gatherings, typically co-hosted with OSCA or GDG. Informal knowledge sharing, demos, and networking. Target: monthly.',
+          'Demo Days: Members present their quarterly challenge projects. Open to public. Celebrates shipping and attracts new members. Quarterly.',
+          'Hackathons: Intense 24–48 hour building sprints. Focus on solving real local problems. Planned for Phase 3.',
+          'Conferences: The Assembly\'s flagship events — "The Craft" (mid-year) and the Annual Conference (Year-end). External speakers, sponsors, wider audience.'
+        ]
+      },
+      {
+        type: 'h3', label: 'Year 1 Flagship Events',
+        items: [
+          'Community Launch Meetup (Month 1): Introduce the community, demo the AI Lab, sign the Covenant',
+          'First Technical Workshop (Month 2): Topic TBD based on member interest survey — e.g., "Build your first REST API" or "Git & GitHub for real projects"',
+          'OSCA Collaboration Meetup (Month 3): Joint event with OSCA Ogbomoso — open source contributions, why they matter, how to start',
+          'GDG Joint Meetup (Month 4–5): Google Developer Group joint event — Android, Flutter, Firebase, or Google Cloud topics',
+          '"The Craft" Conference (Month 6): Mid-year flagship. External speakers. Sponsor-backed. Open to Ogbomoso tech community broadly. Target: 150+ attendees.',
+          'AI App Workshop (Month 7–8): Members build an AI-powered app using the Ollama server. Continue.dev deep dive.',
+          'Hackathon (Month 8–9): 48-hour hackathon. Theme: solve a problem in Oyo State. Teams of 2–4. Prizes.',
+          'Year 1 Annual Conference (Month 11–12): Showcase everything. Member demos, speaker lineup, sponsor recognition, community retrospective.'
+        ]
+      },
+      {
+        type: 'h3', label: 'Workshop Topics Pool',
+        items: [
+          'Git & GitHub for real projects — the missing workshop most devs never got',
+          'Build and deploy a full-stack app in one day',
+          'APIs: consume, build, and document',
+          'Database design for developers',
+          'Introduction to AI coding assistants (Ollama + Continue.dev walkthrough)',
+          'Open source contribution masterclass',
+          'Technical writing for developers',
+          'Freelancing as a Nigerian developer — finding clients, pricing, contracts',
+          'Building mobile apps with Flutter or React Native',
+          'DevOps basics: Linux, Docker, and deployment pipelines'
+        ]
+      },
+      {
+        type: 'h3', label: 'Event Logistics & Partnership Model',
+        content: `<p>Both OSCA and GDG already run active meetups in Ogbomoso — the financial weight of co-hosted events sits with The Assembly. This is a deliberate strategy: by funding events, The Assembly gains programming control, brand visibility, and member acquisition while OSCA and GDG provide community reach and credibility.</p><p>All workshops in the Core and Builder tiers are free — workshop revenue comes from the general public and external attendees only, protecting the value of paid membership while keeping the community's learning culture open.</p>`
+      }
+    ]
+  },
+
+  culture: {
+    eyebrow: 'Strategic Pillar 04',
+    title: 'Culture & Belonging',
+    lead: 'Culture is the operating system of a community. Without it, you have a co-working space. With it, you have a movement. Every ritual, role, and incentive is designed to reinforce the same five covenants.',
+    sections: [
+      {
+        type: 'h3', label: 'The Founding Covenant',
+        content: `<p>The Covenant is not a poster on the wall. It is the first thing new members encounter and the last thing they carry with them. It is read aloud at the launch event, included in the onboarding email, and referenced in code reviews, retrospectives, and hard conversations. It is the community\'s north star.</p>`
+      },
+      {
+        type: 'h3', label: 'Cultural Practices',
+        items: [
+          'Monthly Showcase: Any member can demo something they built in 5 minutes. No gatekeeping. No quality bar. Just shipping.',
+          'Code Review Culture: Feedback must be specific, kind, and actionable. "This doesn\'t work" is not a review. "This function would fail on null input — here\'s why and how to fix it" is a review.',
+          'The Teach-Back: When a member learns something significant, they are expected to share it — in a channel post, a workshop, or a pair session.',
+          'Second Chance Principle: Members who fall off track, miss deadlines, or fail a project are not judged. They are coached, recharged, and re-engaged. No one is written off.',
+          'Celebration Rituals: Shipped projects are announced in the #projects channel. First GitHub PR gets a shout-out. Level progressions are celebrated publicly. Small wins matter.'
+        ]
+      },
+      {
+        type: 'h3', label: 'Governance Roles',
+        items: [
+          'Community Builder / Developer Advocate: The founder of the community. Sets direction, manages partnerships, drives events, and holds the vision.',
+          'AI Lab Administrator: Manages the server — uptime, model updates, access provisioning, and troubleshooting. Ideally a Level 2+ member who loves infrastructure.',
+          'Workshop Coordinators: 2–3 members responsible for curating, scheduling, and facilitating monthly workshops. Rotates quarterly.',
+          'Accountability Pod Leads: Level 2+ members who facilitate weekly pod check-ins and escalate blockers to the Community Builder.',
+          'Open Source Lead: Coordinates OSCA collaboration, tracks members\' contributions, and curates issues for first-time contributors.'
+        ]
+      },
+      {
+        type: 'h3', label: 'Incentives & Recognition',
+        items: [
+          'Level Badge System: Public profile badge for each level. Displayed on GitHub, the community directory, and printed on event badges.',
+          'Workshop Leadership Credits: Members who lead workshops get one month of Core membership free — teaching is recognised as contribution.',
+          'Open Source Bounties: Community funds small bounties (₦5K–₦20K) for significant open source contributions — incentivising real-world impact.',
+          'Featured Project: Each quarter, one member project is featured across all community channels and in the newsletter — spotlight creates aspiration.',
+          'Conference Speaker Slots: Level 3 members are first in line for speaking slots at The Craft and the Annual Conference.'
+        ]
+      },
+      {
+        type: 'h3', label: 'Belonging for a Mixed Audience',
+        content: `<p>Students, self-taught devs, and working professionals have different schedules, pressures, and motivations. The culture accommodates all three: workshops happen on evenings and weekends, async pods work for those with 9-to-5s, and the AI Lab is available whenever The Assembly is open. No one is made to feel like they don\'t belong because of their day job or education status. What matters is: do you ship? Do you show up? Do you lift others?</p>`
+      }
+    ]
+  },
+
+  phase1: {
+    eyebrow: 'Implementation Phase 01 · Months 1–3',
+    title: 'Foundation & Infrastructure',
+    lead: 'Before you can build a community, you must build the container. Phase 1 is about getting the hard things done quietly so the exciting things can happen loudly.',
+    sections: [
+      {
+        type: 'h3', label: 'Month 1: Hardware, Channels & Recruitment',
+        items: [
+          'Order and receive AI Lab server hardware (AMD Ryzen 9 / Intel i9, RTX 4060/3080, 64GB RAM, NVMe + HDD)',
+          'Set up Ubuntu Server, install Ollama, pull DeepSeek Coder, Llama 3.1, CodeLlama, and Mistral models',
+          'Configure Starlink internet and UPS + generator backup, test uptime under simulated power outage',
+          'Create Discord, WhatsApp, and GitHub organisation; define channel structure',
+          'Personally invite and onboard the first 20 developers via 1:1 outreach',
+          'Brief OSCA and GDG Ogbomoso chapter leads; align on Year 1 collaboration plan',
+          'Host Community Launch Meetup: vision talk, AI Lab demo, Covenant signing'
+        ]
+      },
+      {
+        type: 'h3', label: 'Month 2: First Programming',
+        items: [
+          'Launch membership landing page with all three tiers clearly explained',
+          'Run first technical workshop (free, public) — gauge interest, attract new members',
+          'Publish Continue.dev setup guide; onboard first Core members to AI Lab',
+          'Send first two community newsletters with curated resources',
+          'Set up accountability pods for Core and Builder members',
+          'Begin tracking member levels; identify the first 5 Level 1 Builders'
+        ]
+      },
+      {
+        type: 'h3', label: 'Month 3: OSCA Collaboration & Q1 Challenge',
+        items: [
+          'Host OSCA collaboration meetup — open source introduction, first contribution workshop',
+          'Launch Q1 Quarterly Challenge: "Build a tool that solves a problem in Ogbomoso"',
+          'First accountability pod check-ins; collect feedback, iterate pod structure',
+          'Run second workshop (technical, hands-on)',
+          'Target: 30 active community members, 10+ Core or Builder members'
+        ]
+      },
+      {
+        type: 'metrics',
+        items: [
+          { val: '30', label: 'Target Members' },
+          { val: '10+', label: 'Paying Members' },
+          { val: '3+', label: 'Events Hosted' },
+          { val: '₦50K+', label: 'Monthly Revenue Target' }
+        ]
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>Phase 1 Budget Guidance:</strong> The majority of Phase 1 spend is hardware — <strong>₦815K–₦1.2M</strong> for the AI Lab server. Operating costs (₦113K–₦220K/month) begin from Month 1. Revenue is low in this phase. Expect to run at a deficit funded by the initial ₦2M–₦5M budget. This is normal and planned. Break-even begins at Phase 2.</p>`
+      }
+    ]
+  },
+
+  phase2: {
+    eyebrow: 'Implementation Phase 02 · Months 4–6',
+    title: 'Growth & Programming',
+    lead: 'The community has a heartbeat. Now accelerate it. Phase 2 is about regularising programming, deepening partnerships, and proving that The Assembly can sustain itself financially.',
+    sections: [
+      {
+        type: 'h3', label: 'Month 4: GDG Partnership & Scaling Workshops',
+        items: [
+          'Host GDG joint meetup — Google technologies focus (Flutter, Firebase, Android, or Google Cloud)',
+          'Run two workshops this month — increase frequency as demand grows',
+          'Begin charging workshop tickets to non-members (₦2,000–₦5,000)',
+          'Recruit and onboard external workshop facilitators for specialty topics',
+          'Q1 Challenge Demo Day: members present Ogbomoso-focused tools built in Q1',
+          'Begin pursuing first corporate workshop inquiry or sponsorship conversation'
+        ]
+      },
+      {
+        type: 'h3', label: 'Month 5: External Facilitators & Revenue',
+        items: [
+          'Host first externally-facilitated workshop (bring in a speaker from Lagos or Ibadan)',
+          'Launch freelancing workshop — practical, not theoretical: real platforms, real clients, real pricing',
+          'Target: 3 members actively freelancing and earning from skills gained at The Assembly',
+          'Review and rebalance membership pricing if conversion rate is low',
+          'Second OSCA collab — progress check on Q2 Open Source challenge contributions'
+        ]
+      },
+      {
+        type: 'h3', label: 'Month 6: "The Craft" Conference',
+        items: [
+          'Host "The Craft" — The Assembly\'s mid-year developer conference',
+          'Target: 150+ attendees, external speakers (remote or in-person), 1–2 sponsors',
+          'Showcase Q1 community projects on stage — members present to a real audience',
+          'Announce Q3 challenge: AI App using Ollama',
+          'Target: 60 active members, 25+ paying, ₦200K+/month revenue, approaching break-even'
+        ]
+      },
+      {
+        type: 'metrics',
+        items: [
+          { val: '60', label: 'Target Members' },
+          { val: '25+', label: 'Paying Members' },
+          { val: '₦200K', label: 'Monthly Revenue Target' },
+          { val: '6+', label: 'Events Hosted' }
+        ]
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>Break-even target: Month 6.</strong> With 25+ Core members (₦3K–₦5K each) and 10+ Builder members (₦8K–₦12K each), plus workshop revenue and the first conference sponsorships, monthly revenue should reach <strong>₦200K–₦250K</strong> — covering the operating cost range of ₦113K–₦220K. Phase 2 is where self-sustainability begins.</p>`
+      }
+    ]
+  },
+
+  phase3: {
+    eyebrow: 'Implementation Phase 03 · Months 7–9',
+    title: 'Momentum & Innovation',
+    lead: 'The community is now self-sustaining. Phase 3 turns the dial to innovation — AI-powered apps, a hackathon, and the launch of a revenue-generating AI Lab API service.',
+    sections: [
+      {
+        type: 'h3', label: 'Month 7: AI Workshop & Deepening Culture',
+        items: [
+          'Host "Building with AI" workshop series — 2–3 sessions on using Ollama + Continue.dev to build real applications',
+          'Launch Q3 Challenge officially: build an AI-powered app using the local server',
+          'First Level 2 (Craftsman) progression announcements — celebrate publicly',
+          'Introduce open source bounties: fund 3–5 significant contributions from the community budget',
+          'Review accountability pods — reshuffle, add new members to pods from growing community'
+        ]
+      },
+      {
+        type: 'h3', label: 'Month 8: Hackathon',
+        items: [
+          'Host The Assembly Hackathon — 48 hours, theme: "Solve a Problem in Oyo State"',
+          'Teams of 2–4 members; open to non-members with team registration fee',
+          'Judging panel includes external mentors and community leaders',
+          'Prizes: ₦50K–₦100K total prize pool (sourced from registrations + sponsorship)',
+          'Showcase hackathon projects at a post-hackathon Demo Day'
+        ]
+      },
+      {
+        type: 'h3', label: 'Month 9: AI Lab API Pilot',
+        items: [
+          'Launch AI Lab API Access pilot for external startups — charged service',
+          'Pricing: per-request or subscription model; target ₦30K–₦80K/month additional revenue',
+          'Identify 3–5 early startup clients through The Assembly network',
+          'Target: 80 active members, 40+ daily AI Lab users, ₦350K+/month revenue',
+          'Q3 Challenge Demo Day: AI app presentations, judged by external panel'
+        ]
+      },
+      {
+        type: 'metrics',
+        items: [
+          { val: '80', label: 'Target Members' },
+          { val: '40+', label: 'Daily AI Lab Users' },
+          { val: '₦350K', label: 'Monthly Revenue Target' },
+          { val: '3+', label: 'Level 2 Progressions' }
+        ]
+      }
+    ]
+  },
+
+  phase4: {
+    eyebrow: 'Implementation Phase 04 · Months 10–12',
+    title: 'Harvest & Showcase',
+    lead: 'Phase 4 is about proving that the investment was worth it — through projects shipped, engineers promoted, and a conference that announces The Assembly to the wider world.',
+    sections: [
+      {
+        type: 'h3', label: 'Month 10: Product Sprint',
+        items: [
+          'Launch Q4 Challenge — Product Sprint: "Build something to sell or launch"',
+          'Host a freelancing and client acquisition workshop — practical templates, platforms, pricing strategies',
+          'First Level 3 (Senior) progression announcements — milestone moment for the community',
+          'Review AI Lab API revenue — iterate pricing and onboard additional startup clients',
+          'Target: first members earning meaningfully from skills developed at The Assembly'
+        ]
+      },
+      {
+        type: 'h3', label: 'Month 11: Annual Conference Preparation',
+        items: [
+          'Full preparation for Year 1 Annual Conference — speaker outreach, sponsor packages, event page',
+          'Community retrospective: what worked in Year 1, what didn\'t, what changes in Year 2',
+          'Feature 5+ member projects in the pre-conference newsletter',
+          'Member spotlight series: interview and publish stories of notable journeys (Level 0 → Level 2, etc.)',
+          'Target: 100+ active members reached'
+        ]
+      },
+      {
+        type: 'h3', label: 'Month 12: The Annual Conference & Year 2 Planning',
+        items: [
+          'Host Year 1 Annual Conference — community\'s biggest event of the year',
+          'Member demos, external keynote speakers, sponsor recognition, community awards',
+          'Q4 Challenge Demo Day: product pitches, launch announcements',
+          'Announce Year 2 roadmap — set expectations, build excitement for what\'s next',
+          'Publish Year 1 impact report: members, projects, revenue, events, and progressions — full transparency'
+        ]
+      },
+      {
+        type: 'metrics',
+        items: [
+          { val: '100+', label: 'Active Members' },
+          { val: '₦500K+', label: 'Monthly Revenue' },
+          { val: '5+', label: 'Junior → Senior' },
+          { val: '12+', label: 'OSCA/GDG Events' }
+        ]
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>The Harvest:</strong> Phase 4 is where the compounding effects of 12 months of community building become visible. Members who joined in Month 1 as explorers are now craftsmen and seniors. Projects that started as quarterly challenges are now live products. Revenue covers ops and generates surplus. <strong>The Assembly is no longer just a workspace — it is the most important developer community in Oyo State.</strong></p>`
+      }
+    ]
+  },
+
+  osca: {
+    eyebrow: 'Partnership',
+    title: 'OSCA Partnership',
+    lead: 'Open Source Community Africa already has an active chapter in Ogbomoso. OSCA brings community reach, open-source credibility, and a mission-aligned audience. The Assembly brings resources, space, and programming capacity.',
+    sections: [
+      {
+        type: 'h3', label: 'What OSCA Brings',
+        items: [
+          'An established member base of open-source-curious developers in Ogbomoso',
+          'Continental network connections to OSCA Lagos, Abuja, and other chapters',
+          'Credibility and legitimacy in the African open-source community',
+          'Curated list of open-source projects suitable for beginner contributors',
+          'Access to OSCA\'s event promotion channels (social media, newsletter, Discord)'
+        ]
+      },
+      {
+        type: 'h3', label: 'What The Assembly Brings',
+        items: [
+          'Physical venue and infrastructure for all joint events',
+          'Financial weight of co-hosted events — OSCA brings the audience, The Assembly funds the logistics',
+          'AI Lab access for OSCA members during joint events',
+          'Workshop facilitation capacity and structured programming',
+          'Complementary focus on commercial and career development alongside open-source contribution'
+        ]
+      },
+      {
+        type: 'h3', label: 'Partnership Activation Plan',
+        items: [
+          'Month 1: Brief OSCA chapter leads on the community strategy, align on Year 1 calendar',
+          'Month 3: First OSCA collab meetup — open source intro, first contribution workshop',
+          'Month 5: Progress check on Q2 Open Source Challenge — OSCA co-facilitates',
+          'Month 6: OSCA featured at "The Craft" conference — session on open source in Africa',
+          'Monthly: Cross-promote events on each other\'s channels; share member acquisition',
+          'Ongoing: Track and celebrate all Assembly member contributions to OSCA-aligned projects'
+        ]
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>The Q2 Challenge is OSCA-aligned by design.</strong> Every Assembly member contributing to an open-source project in Q2 is simultaneously advancing the OSCA mission. This alignment means both organisations are strengthened by the same activity — a compounding win for both communities and the individual developers involved.</p>`
+      }
+    ]
+  },
+
+  gdg: {
+    eyebrow: 'Partnership',
+    title: 'GDG Partnership',
+    lead: 'Google Developer Group Ogbomoso brings the Google ecosystem — Android, Flutter, Firebase, Google Cloud — and a community of developers already engaged with product-focused learning. The Assembly brings the infrastructure and depth.',
+    sections: [
+      {
+        type: 'h3', label: 'What GDG Brings',
+        items: [
+          'An active Ogbomoso chapter with established meetup culture',
+          'Google Developer ecosystem expertise — Android, Flutter, Firebase, Cloud, ML Kit',
+          'Access to Google\'s developer program resources, speaker grants, and swag',
+          'Community reach among mobile and product-focused developers',
+          'Connection to the wider GDG network across Nigeria and Africa'
+        ]
+      },
+      {
+        type: 'h3', label: 'What The Assembly Brings',
+        items: [
+          'Physical space and infrastructure for all joint GDG events',
+          'Financial event support — venue, catering, materials',
+          'A technical community that extends beyond the Google ecosystem into open-source, AI, and web',
+          'AI Lab access and differentiated programming not available elsewhere in the city',
+          'Structured membership and accountability systems that deepen engagement post-meetup'
+        ]
+      },
+      {
+        type: 'h3', label: 'Partnership Activation Plan',
+        items: [
+          'Month 1: Align with GDG Ogbomoso organiser on the first joint event — choose technology focus',
+          'Month 4–5: Host first GDG joint meetup at The Assembly — Flutter, Firebase, or Android dev focus',
+          'Month 6: GDG featured at "The Craft" mid-year conference',
+          'Month 9–10: Possible GDG DevFest co-hosting if the annual cycle aligns',
+          'Quarterly: GDG and Assembly share member directories; cross-promote all major events'
+        ]
+      },
+      {
+        type: 'h3', label: 'The Combined Community Effect',
+        content: `<p>With both OSCA and GDG as active partners, The Assembly sits at the intersection of two of the most active developer networks in Africa. Every GDG or OSCA member in Ogbomoso is a potential Assembly member. Every Assembly member is a potential ambassador for both partner communities. The Assembly does not compete with its partners — it is the home base that gives all of them a place to build something deeper together.</p>`
+      }
+    ]
+  },
+
+  mentors: {
+    eyebrow: 'Network',
+    title: 'External Mentors',
+    lead: 'The best mentorship comes from people who have walked the path the mentee wants to walk. External mentors connect The Assembly to the wider Nigerian and global tech ecosystem.',
+    sections: [
+      {
+        type: 'h3', label: 'Who We Are Looking For',
+        items: [
+          'Senior engineers at Nigerian tech companies (Flutterwave, Paystack, Kuda, Cowrywise, etc.) willing to do quarterly virtual sessions',
+          'Nigerian engineers in the diaspora (UK, US, Canada) who want to give back to the ecosystem',
+          'Founders of Nigerian tech startups — particularly those who started as developers and can speak to the entrepreneur path',
+          'Open-source contributors with significant GitHub presence and teaching experience',
+          'Technical writer, DevRel, or developer advocacy practitioners who can speak to non-engineering career paths'
+        ]
+      },
+      {
+        type: 'h3', label: 'What External Mentors Do',
+        items: [
+          'Quarterly virtual sessions with Builder-tier members (30–60 min, focused on real career questions)',
+          'Annual conference speaker spots — sharing genuine stories and practical wisdom',
+          'Portfolio and code reviews — async feedback on Builder member projects',
+          'Job referrals and network intros for Level 3 members who are job-ready',
+          'Technical validation of community projects — "would this survive in production?" feedback'
+        ]
+      },
+      {
+        type: 'h3', label: 'How We Attract and Retain Mentors',
+        items: [
+          'Personal outreach from the Community Builder — warm, specific, not templated',
+          'Clear commitment boundary: 1 session per quarter, async feedback only beyond that',
+          'Public recognition: featured in the newsletter, on the website, and at events',
+          'First access to Assembly member talent for hiring — a genuine and valuable incentive',
+          'The intrinsic reward: being part of building something genuinely transformative in Ogbomoso'
+        ]
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>The mentor-student loop:</strong> Today's external mentor is often yesterday's Assembly member. As Level 3 Seniors emerge from the community and move into industry roles, they naturally become the next cohort of external mentors — creating a flywheel of mentorship that compounds over years, not quarters.</p>`
+      }
+    ]
+  },
+
+  'tier-free': {
+    eyebrow: 'Membership Tier 01',
+    title: 'Free Member',
+    lead: 'No barrier. No commitment. Just community. The Free tier is the widest door — designed to let every curious developer in Ogbomoso discover what The Assembly is building.',
+    sections: [
+      {
+        type: 'h3', label: 'What Free Members Get',
+        items: [
+          'Access to all community channels — Discord, WhatsApp announcement group, and GitHub organisation',
+          'Invitations to all public events (meetups, demo days, select workshops that are open to non-members)',
+          'The weekly community newsletter — curated resources, event previews, member spotlights',
+          'Visibility of the community directory — see who is building what',
+          'Ability to participate in public discussions and share projects in open channels'
+        ]
+      },
+      {
+        type: 'h3', label: 'What Free Members Do Not Get',
+        items: [
+          'AI Lab access (Core and Builder members only)',
+          'Workshop priority registration — free workshops may fill up, members go first',
+          'Accountability pods and structured mentorship',
+          'Portfolio reviews',
+          'Dedicated desk or office hours'
+        ]
+      },
+      {
+        type: 'h3', label: 'The Role of the Free Tier',
+        content: `<p>The Free tier is not a lesser tier — it is a discovery tier. It is how a curious student in a 200-level CS class finds out about The Assembly. It is how a self-taught developer who is not yet ready to commit financially stays close to the community while they grow. It is the community's widest marketing channel and its most important onboarding funnel.</p><p>The goal is not to keep people in the Free tier. The goal is to make the Free tier experience compelling enough that members naturally want to upgrade when they are ready. The upgrade conversation should feel inevitable, not pressured.</p>`
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>Free is not a compromise — it is a strategy.</strong> A free tier with genuinely valuable content (a great newsletter, real community, good public events) is the most efficient member acquisition tool available. <strong>Every paying member started as a free member first.</strong></p>`
+      }
+    ]
+  },
+
+  'tier-core': {
+    eyebrow: 'Membership Tier 02',
+    title: 'Core Member',
+    lead: 'The Core tier is where developers go from spectators to builders. Access to the AI Lab, accountability pods, and workshop priority — the tools needed to actually grow.',
+    sections: [
+      {
+        type: 'h3', label: 'Pricing',
+        content: `<p>₦3,000–₦5,000 per month. The range allows for tiered pricing based on factors such as student vs. professional status, or introductory vs. standard rates. Target: 40–50 Core members by Month 12.</p>`
+      },
+      {
+        type: 'h3', label: 'What Core Members Get',
+        items: [
+          'All Free tier benefits',
+          'AI Lab access — full access to the local Ollama server with DeepSeek Coder, Llama 3.1, CodeLlama, and Mistral via Continue.dev in VSCode',
+          'Workshop priority registration — Core members register before the public',
+          'Free workshop tickets — no charge to attend any Assembly-hosted workshop',
+          'Accountability pod placement — a dedicated group of 4–6 peers, weekly check-ins',
+          'Access to the curated resource library — links, courses, and reading lists maintained by the community team',
+          'Monthly community newsletter with the Core-member exclusive section (job listings, project collabs, etc.)'
+        ]
+      },
+      {
+        type: 'h3', label: 'Who the Core Tier is For',
+        content: `<p>The Core tier is ideal for the self-motivated developer who primarily works from home or another space but wants access to the AI Lab, community accountability, and structured programming. They do not need a dedicated desk — they show up for workshops, pod check-ins, and when they need to deep-work with AI assistance. This is the majority of the target membership.</p>`
+      },
+      {
+        type: 'h3', label: 'Revenue Contribution',
+        items: [
+          'Target: 40 Core members at ₦3,000 = ₦120,000/month',
+          'Stretch: 50 Core members at ₦4,000 = ₦200,000/month',
+          'Core memberships are the most predictable revenue stream — monthly recurring, lower churn risk than Builder'
+        ]
+      }
+    ]
+  },
+
+  'tier-builder': {
+    eyebrow: 'Membership Tier 03',
+    title: 'Builder Member',
+    lead: 'The Builder tier is for developers who are all in — dedicated desk, mentorship, portfolio reviews, and everything in Core. For those who want to be at The Assembly every day.',
+    sections: [
+      {
+        type: 'h3', label: 'Pricing',
+        content: `<p>₦8,000–₦12,000 per month. Premium pricing reflecting the dedicated workspace and elevated access. Target: 10–15 Builder members by Month 12.</p>`
+      },
+      {
+        type: 'h3', label: 'What Builder Members Get',
+        items: [
+          'All Core tier benefits',
+          'Dedicated desk — a reserved physical workspace at The Assembly, theirs whenever they are present',
+          'Mentorship matching — paired with an internal Level 2 or 3 mentor and connected to an external mentor for quarterly virtual sessions',
+          'Monthly portfolio reviews — 1:1 feedback on their GitHub, projects, and personal brand',
+          'Priority access to all events — front-of-queue for speakers, workshops, and conference perks',
+          'First visibility to job referrals and opportunities shared by external mentors',
+          'Nameplate on the Builder Wall — a physical recognition of commitment'
+        ]
+      },
+      {
+        type: 'h3', label: 'Who the Builder Tier is For',
+        content: `<p>The Builder tier is for developers who want to move fast. Students taking their final year seriously, self-taught devs building their first real portfolio, working professionals who carve out morning hours before the office. They treat The Assembly as their professional home — not just a place to attend events, but a place to do the actual work of becoming a great engineer.</p>`
+      },
+      {
+        type: 'h3', label: 'Revenue Contribution',
+        items: [
+          'Target: 10 Builder members at ₦10,000 = ₦100,000/month',
+          'Stretch: 15 Builder members at ₦12,000 = ₦180,000/month',
+          'Combined with Core membership revenue, Builder memberships push total monthly recurring revenue to ₦220K–₦380K'
+        ]
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>Builder members are the community's most visible proof of concept.</strong> When a Builder member ships a project, lands a job, or launches a startup, it is not a quiet internal win — it is a loud, public signal that The Assembly works. Their success stories are the most powerful marketing tool the community has.</p>`
+      }
+    ]
+  },
+
+  revenue: {
+    eyebrow: 'Revenue & Sustainability',
+    title: 'Revenue Model',
+    lead: 'A community that cannot pay for itself cannot outlast its founder\'s enthusiasm. Every revenue stream is designed to reinforce the community\'s value, not extract from it.',
+    sections: [
+      {
+        type: 'h3', label: 'Revenue Streams',
+        items: [
+          'Core Memberships (₦3K–₦5K/month × 40–50 members): Target ₦120,000–₦200,000/month. Most predictable stream. Monthly recurring.',
+          'Builder Memberships (₦8K–₦12K/month × 10–15 members): Target ₦100,000–₦180,000/month. Premium tier with higher value delivery.',
+          'Workshop Tickets (₦2K–₦5K per ticket, non-members): Variable. Based on 2–4 paid workshops/month with 20–40 external attendees each.',
+          'Event Sponsorships (₦50K–₦200K per conference): Project 2–3 sponsored conferences in Year 1. "The Craft" and Annual Conference are the primary vehicles.',
+          'AI Lab API Access for External Startups (from Month 9): ₦30K–₦80K/month additional recurring revenue. Grows with reputation.',
+          'Corporate Workshops (₦50K–₦150K per engagement): Custom training engagements for companies in Ogbomoso and Oyo State. Low volume, high value.'
+        ]
+      },
+      {
+        type: 'h3', label: 'Cost Structure',
+        items: [
+          'Monthly Operating Cost: ₦113,000–₦220,000 (utilities, internet/Starlink, platform subscriptions, event logistics, speaker stipends)',
+          'One-time Phase 1 Costs: ₦815,000–₦1,200,000 (AI Lab hardware)',
+          'Event Costs: Included in operating range for standard events; larger conferences may require ₦100K–₦300K additional spend offset by sponsorship'
+        ]
+      },
+      {
+        type: 'h3', label: 'Break-Even Analysis',
+        content: `<p>At Month 6, with 25+ Core members and 10+ Builder members, the community reaches break-even on monthly operations. At Month 12, with 50+ paying members, regular workshops, and AI Lab API revenue, the monthly revenue target of ₦500,000+ covers all costs and generates a surplus that can fund Year 2 initiatives.</p>`
+      },
+      {
+        type: 'metrics',
+        items: [
+          { val: '₦220K', label: 'Core + Builder MRR Target' },
+          { val: '₦113K', label: 'Min Monthly Op Cost' },
+          { val: 'M6', label: 'Break-Even Month' },
+          { val: '₦500K+', label: 'Year-End Monthly Revenue' }
+        ]
+      },
+      {
+        type: 'highlight',
+        content: `<p><strong>Revenue philosophy:</strong> Every naira of revenue should make the community better, not just more profitable. Sponsorships fund events that benefit members. Workshop revenue funds external speakers. AI Lab API revenue funds model upgrades. The community's financial model and its mission are designed to reinforce each other — <strong>growth in members is growth in revenue, and growth in revenue enables growth in members</strong>.</p>`
+      }
+    ]
+  },
+
+  outcomes: {
+    eyebrow: 'Year 1 Outcomes',
+    title: 'What Success Looks Like',
+    lead: 'By Month 12, The Assembly Ogbomoso developer community should be unmistakably real — measured not just in numbers, but in people whose lives and careers have changed because it existed.',
+    sections: [
+      {
+        type: 'h3', label: 'Quantitative Targets',
+        items: [
+          '100+ active community members (definition: engaged in a channel, event, or project in the last 30 days)',
+          '50+ paying members — Core and Builder combined',
+          '15+ projects shipped publicly on GitHub with meaningful README and commit history',
+          '₦500,000+/month community revenue by Month 12',
+          '5+ junior → senior progressions (formally recognised Level 0 or 1 → Level 2 or 3)',
+          '12+ events co-hosted with OSCA and GDG over the year',
+          '40+ daily AI Lab users (Core and Builder members using the local Ollama server regularly)'
+        ]
+      },
+      {
+        type: 'h3', label: 'Qualitative Targets',
+        items: [
+          'The Assembly developer community is known beyond Ogbomoso — at least one member is recognised at a Lagos or Abuja tech event',
+          'At least one community-born product is in active use by real users in Ogbomoso',
+          'The Founding Covenant is living — referenced in code reviews, community decisions, and new member orientation',
+          'New developers in Ogbomoso have heard of The Assembly before they even think to look for a community'
+        ]
+      },
+      {
+        type: 'h3', label: 'Review Cadence',
+        items: [
+          'Weekly: Community Builder internal review — member count, activity metrics, upcoming events',
+          'Monthly: Community metrics published in the newsletter — full transparency with members',
+          'Quarterly: All-hands retrospective — what worked, what didn\'t, what changes next quarter',
+          'Annually: Full Year 1 Impact Report — published publicly; sets baseline for Year 2 goals'
+        ]
+      },
+      {
+        type: 'h3', label: 'The Real Measure of Success',
+        content: `<p>Numbers tell part of the story. The real measure is qualitative: Is there a developer in Ogbomoso who is a better engineer because The Assembly existed? Is there someone who had given up on tech who found their community here and kept going? Is there a first pull request that only happened because a pod lead stayed up to help a Level 0 Explorer understand merge conflicts?</p><p>If yes — the mission is working. Scale the numbers, but never lose sight of the individual lives they represent.</p>`
+      },
+      {
+        type: 'metrics',
+        items: [
+          { val: '100+', label: 'Active Members' },
+          { val: '15+', label: 'GitHub Projects' },
+          { val: '₦500K', label: 'Monthly Revenue' },
+          { val: '5+', label: 'Level Promotions' }
+        ]
+      }
+    ]
+  }
+};
+
+// ===== NAVIGATION =====
+let currentScreen = 'cover';
+const screenIds = ['cover', 'map', 'detail', 'next'];
+
+function goTo(targetId) {
+  const current = document.getElementById('screen-' + currentScreen);
+  const target = document.getElementById('screen-' + targetId);
+  if (!target || targetId === currentScreen) return;
+
+  // Scroll targets to top when going to detail or next
+  if (targetId === 'detail' || targetId === 'next') {
+    target.scrollTop = 0;
+  }
+
+  current.classList.remove('active');
+  current.classList.add('exit-up');
+  target.classList.add('active');
+  target.classList.remove('exit-down', 'exit-up');
+
+  setTimeout(() => {
+    current.classList.remove('exit-up', 'exit-down');
+  }, 500);
+
+  currentScreen = targetId;
+}
+
+// ===== RENDER DETAIL =====
+function renderDetail(key) {
+  const data = detailData[key];
+  if (!data) return;
+
+  let html = `
+    <div class="detail-eyebrow">${data.eyebrow}</div>
+    <h1 class="detail-title">${data.title}</h1>
+    <p class="detail-lead">${data.lead}</p>
+    <div class="detail-divider"></div>
+  `;
+
+  for (const section of data.sections) {
+    if (section.type === 'h3') {
+      html += `<div class="detail-section"><h3>${section.label}</h3>`;
+      if (section.content) html += section.content;
+      if (section.items) {
+        html += `<ul>`;
+        for (const item of section.items) html += `<li>${item}</li>`;
+        html += `</ul>`;
+      }
+      html += `</div>`;
+    } else if (section.type === 'highlight') {
+      html += `<div class="highlight-box">${section.content}</div>`;
+    } else if (section.type === 'metrics') {
+      html += `<div class="metric-grid">`;
+      for (const m of section.items) {
+        html += `<div class="metric-card"><div class="metric-val">${m.val}</div><div class="metric-label">${m.label}</div></div>`;
+      }
+      html += `</div>`;
+    } else if (section.type === 'tags') {
+      html += `<div class="tag-pills-row">`;
+      for (const t of section.items) {
+        html += `<div class="tag-pill ${t.color}">${t.label}</div>`;
+      }
+      html += `</div>`;
+    }
+  }
+
+  document.getElementById('detail-content').innerHTML = html;
+}
+
+function showDetail(key) {
+  renderDetail(key);
+  goTo('detail');
+}
+
+// Init: show cover screen
+document.getElementById('screen-cover').classList.add('active');
+</script>
+</body>
+</html>
